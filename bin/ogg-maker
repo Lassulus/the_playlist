@@ -1,0 +1,14 @@
+#!/bin/sh
+filename="$1"
+outname=$(echo $1 | sed 's/^\(.*\)\..*/\1/').ogg
+if [ "$filename" == "$outname" ]; then
+  ffmpeg -i $filename tmp_$filename
+  sox --norm=3 $filename tmp_$filename silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
+  vorbisgain ${filename}tmp
+  mv tmp_$filename $filename
+else
+  ffmpeg -i $filename $outname
+  sox --norm=-3 $filename $outname silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
+  vorbisgain $outname
+  rm $filename
+fi
