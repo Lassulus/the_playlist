@@ -1,6 +1,6 @@
 #! /bin/sh
 set -euf
-target_folder="./music"
+target_folder=${target-./}
 
 uri=$1
 id=$(echo "$uri" | sed -n 's@^https\?://www\.youtube\.com/watch?v=@@p' | sed 's/#.*$//')
