@@ -7,6 +7,7 @@ with import <nixpkgs> {}; {
       pypyPackages.youtube-dl-light
       sox
       vorbisgain
+      mpv
     ];
     SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt";
   };

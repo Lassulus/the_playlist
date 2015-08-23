@@ -11,3 +11,6 @@ add:           ##to add link to ./links
 check:        ## check for missing songs
 check:        ## make download should be run first
 	cat links | musicDir=./music xargs -n1 bin/checkMissing
+
+play:         ## play the playlist without downloading
+	mpv --loop=inf --shuffle --playlist links
