@@ -7,3 +7,7 @@ download:     ## download all links to ./music
 add:           ##make add url="http://youtube..."
 add:           ##to add link to ./links
 	bin/youtplaylist ${url} >> links
+
+check:        ## check for missing songs
+check:        ## make download should be run first
+	cat links | musicDir=./music xargs -n1 bin/checkMissing
