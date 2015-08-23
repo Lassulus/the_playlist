@@ -14,3 +14,7 @@ check:        ## make download should be run first
 
 play:         ## play the playlist without downloading
 	mpv --loop=inf --shuffle --playlist links
+
+copy:         ## make copy dest="/mnt/tmp/music"
+copy:         ## to copy music to dest
+	rsync -vrltD ./music ${dest}
