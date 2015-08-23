@@ -2,7 +2,7 @@ help:         ## Show this help.
 		@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 download:     ## download all links to ./music
-	cat links | parallel -j5 -k "target=./music bin/yout2ogg"
+	cat links | parallel -j4 -k "target=./music bin/yout2ogg"
 
 add:           ##make add url="http://youtube..."
 add:           ##to add link to ./links
