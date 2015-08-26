@@ -1,8 +1,11 @@
+jobs = 2
+
 help:         ## Show this help.
 		@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 download:     ## download all links to ./music
-	cat links | parallel -j4 -k "target=./music bin/yout2ogg"
+download:			## you can specify number of jobs with ex. jobs=4
+	cat links | parallel -j${jobs} -k "target=./music bin/yout2ogg"
 
 add:           ##make add url="http://youtube..."
 add:           ##to add link to ./links
