@@ -17,4 +17,4 @@ play:         ## play the playlist without downloading
 
 copy:         ## make copy dest="/mnt/tmp/music"
 copy:         ## to copy music to dest
-	rsync -vrltD ./music ${dest}
+	rsync -vrltD ./music/ ${dest}
