@@ -7,6 +7,10 @@ download:     ## download all links to ./music
 download:			## you can specify number of jobs with ex. jobs=4
 	cat links | parallel -j${jobs} -k "target=./music bin/yout2ogg"
 
+downloadmp3:  ## download all links to ./mp3 (as mp3)
+downloadmp3:  ## you can specify number of jobs with ex. jobs=4
+	cat links | parallel -j${jobs} -k "target=./mp3 bin/yout2mp3"
+
 add:           ##make add url="http://youtube..."
 add:           ##to add link to ./links
 	bin/youtplaylist ${url} >> links
