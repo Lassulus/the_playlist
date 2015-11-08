@@ -1,0 +1,15 @@
+#! /bin/sh
+set -euf
+target_folder=${target-./}
+
+source=$1
+target_mp3=$(basename $1 | sed 's/ogg$/mp3/')
+
+mkdir -p $target_folder
+
+if test -e $target_folder/$target_mp3; then
+  echo "already done: $target_mp3 in $target_folder" >&2
+  exit
+fi
+
+ffmpeg -i $source $target_folder/$target_mp3

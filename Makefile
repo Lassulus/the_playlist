@@ -29,3 +29,6 @@ play:         ## play the playlist without downloading
 copy:         ## make copy dest="/mnt/tmp/music"
 copy:         ## to copy music to dest
 	rsync -vrltD ./music/ ${dest}
+
+convert2mp3:	## converts stuff from ./music to ./mp3
+	ls music/* | target=./mp3 xargs -n1 bin/ogg2mp3
