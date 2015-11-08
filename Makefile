@@ -21,7 +21,7 @@ check:        ## make download should be run first
 
 checkmp3:        ## check for missing songs
 checkmp3:        ## make download should be run first
-	cat links | musicDir=./mp3 xargs -n1 bin/checkMissing
+	cat links | musicDir=./mp3 xargs -n1 bin/checkMissingmp3
 
 play:         ## play the playlist without downloading
 	mpv --loop=inf --shuffle --playlist links

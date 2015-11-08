@@ -1,0 +1,9 @@
+#!/bin/sh
+
+uri=$1
+musicDir=${musicDir-./}
+id=$(echo "$uri" | sed -n 's@^https\?://www\.youtube\.com/watch?v=@@p' | sed 's/#.*$//')
+
+if ! file=$(find $musicDir | grep -q "[-]$id\\.mp3\$"); then
+  echo $uri
+fi
