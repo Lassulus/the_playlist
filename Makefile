@@ -19,6 +19,9 @@ check:        ## check for missing songs
 check:        ## make download should be run first
 	cat links | musicDir=./music xargs -n1 bin/checkMissing
 
+reversecheck: ## check for orphan files in directory
+	ls music/* | xargs -n1 bin/checkMissingLink
+
 checkmp3:        ## check for missing songs
 checkmp3:        ## make download should be run first
 	cat links | musicDir=./mp3 xargs -n1 bin/checkMissingmp3

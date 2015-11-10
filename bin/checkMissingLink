@@ -1,0 +1,15 @@
+#!/bin/sh 
+
+file=$1
+id=$(echo "$file" | sed 's/.*\(.\{11\}\)\.ogg/\1/')
+
+#Wattie_Green_-_Dark_eyes-gdlFy3dRVck.ogg
+
+if [ $id = '' ]; then
+	echo 'no id'
+	exit 23
+fi
+
+if ! grep -q -- "$id#" links; then 
+	echo $file
+fi
