@@ -4,6 +4,6 @@ uri=$1
 musicDir=${musicDir-./}
 id=$(echo "$uri" | sed -n 's@^https\?://www\.youtube\.com/watch?v=@@p' | sed 's/#.*$//')
 
-if ! file=$(find $musicDir | grep -q "[-]$id\\.ogg\$"); then
+if ! file=$(find $musicDir -maxdepth 1 | grep -q "[-]$id\\.ogg\$"); then
   echo $uri
 fi
