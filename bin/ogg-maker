@@ -3,13 +3,13 @@ filename="$1"
 outname=$(echo $1 | sed 's/^\(.*\)\..*/\1/').ogg
 if [ "$filename" == "$outname" ]; then
   ffmpeg -i $filename tmp_$outname
-  sox --norm=3 tmp_$outname tmp2_$outname silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
+  sox --norm tmp_$outname tmp2_$outname silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
   rm tmp_$outname
   vorbisgain tmp2_$outname
   mv tmp2_$outname $outname
 else
   ffmpeg -i $filename tmp_$outname
-  sox --norm=-3 tmp_$outname $outname silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
+  sox --norm tmp_$outname $outname silence 1 0.1 1% reverse silence 1 0.1 1% reverse rate 44100
   rm tmp_$outname
   vorbisgain $outname
   rm $filename
