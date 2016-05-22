@@ -25,6 +25,9 @@ reversecheck: ## check for orphan files in directory
 addorphans: ## add orphan files to links
 	ls music/* | xargs -n1 bin/checkMissingLink | sed 's,.*\(.\{11\}\)\.ogg,http://www.youtube.com/watch?v=\1,' | xargs -n1 youtplaylist >> links
 
+deleteorphans:
+	ls music/* | xargs -n1 bin/checkMissingLink | xargs rm
+
 checkmp3:        ## check for missing songs
 checkmp3:        ## make download should be run first
 	cat links | musicDir=./mp3 xargs -n1 bin/checkMissingmp3
