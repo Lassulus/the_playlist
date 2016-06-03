@@ -41,7 +41,7 @@ copy:         ## to copy music to dest
 
 drycopy:         ## make drycopy dest="/mnt/tmp/music"
 drycopy:         ## to dryrun copy music to dest (for finding deleted files etc.)
-	rsync -vrltD --delete --ignore-existing --exclude=.graveyard ./music/ ${dest}
+	rsync -vnrltD --delete --ignore-existing --exclude=.graveyard ./music/ ${dest}
 
 convert2mp3:	## converts stuff from ./music to ./mp3
 	ls music/* | target=./mp3 xargs -n1 bin/ogg2mp3
