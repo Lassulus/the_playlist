@@ -4,7 +4,7 @@ with import <nixpkgs> {}; {
     buildInputs = [
       ffmpeg
       parallel
-      python35Packages.youtube-dl-light
+      python35Packages.youtube-dl
       sox
       vorbisgain
       mpv
