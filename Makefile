@@ -13,7 +13,7 @@ downloadmp3:  ## you can specify number of jobs with ex. jobs=4
 
 add:           ##make add url="http://youtube..."
 add:           ##to add link to ./links
-	bin/youtplaylist ${url} >> links
+	bin/youtplaylist ${url} | tee -a links
 
 check:        ## check for missing songs
 check:        ## make download should be run first
