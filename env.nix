@@ -10,5 +10,8 @@ with import <nixpkgs> {}; {
       mpv
     ];
     SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt";
+    shellHook = ''
+      PATH=$PATH:${./bin}
+    '';
   };
 }
