@@ -16,7 +16,7 @@ fi
 
 cd $target_folder
 
-if file=$(ls | grep "[-]$id\\.ogg\$"); then
+if file=$(ls | grep "[-]$id\\.mp3\$"); then
   echo "already done: $file in $target_folder" >&2
   exit
 fi
