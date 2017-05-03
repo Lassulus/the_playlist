@@ -1,10 +1,10 @@
-with import <nixpkgs> {}; {
-  env = stdenv.mkDerivation {
+with import <stockholm>; {
+  env = pkgs.stdenv.mkDerivation {
     name = "playlist-tools";
-    buildInputs = [
+    buildInputs = with pkgs; [
       ffmpeg
       parallel
-      python35Packages.youtube-dl
+      youtube-dl
       sox
       vorbisgain
       mpv
