@@ -1,12 +1,12 @@
 let
-  lib = import <stockholm/lib>;
-  pkgs = import <nixpkgs> { overlays = [(import <stockholm/krebs/5pkgs>)]; };
-  #pkgs = import (opkgs.fetchFromGitHub {
-  #  owner = "nixos";
-  #  repo = "nixpkgs";
-  #  rev = "579a190cfdb187e8a279962bdb3df51fbd23a08b"; #youtube-dl upgrade
-  #  sha256 = "0lj9kdp0r0c66sb95yiqxjm4s4cywsyy0dpw1w01rff1acgdr2bh";
-  #}) {};
+  opkgs = import <nixpkgs> {};
+  stockholm = opkgs.fetchgit {
+    url = "https://cgit.lassul.us/stockholm";
+    rev = "02f67ee";
+    sha256 = "1ml6aw8ds1sw6bl238v9vc78sjv3iys71184ayirmj2kn6dr33ap";
+  };
+  lib = import "${stockholm}/lib";
+  pkgs = import <nixpkgs> { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
 
   commands.review = let
     moveToDir = key: dir: pkgs.writeText "move-with-${key}.lua" ''

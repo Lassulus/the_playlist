@@ -1,2 +1,0 @@
-#!/bin/sh
-youtube-dl -i -o "http://www.youtube.com/watch?v=%(id)s#%(title)s" --restrict-filenames --get-filename $1
