@@ -43,7 +43,7 @@ let
   # get_new
   # download new music from source
   commands.pull = pkgs.writeDash "commands.pull" ''
-    set -xeuf
+    set -euf
     ${common_header}
     echo "run1"
     ${utils.download_stream} || :
@@ -54,7 +54,7 @@ let
   '';
 
   utils.extract_playlist = pkgs.writeDash "utils.extract_playlist" ''
-    set -xeuf
+    set -euf
 
     ${pkgs.youtube-dl}/bin/youtube-dl \
       -i -o "http://www.youtube.com/watch?v=%(id)s#%(title)s" \
@@ -122,7 +122,7 @@ let
   '';
 
   utils.download_stream = pkgs.writeDash "utils.download_stream" ''
-    set -xeuf
+    set -euf
     ${common_header}
     cd "$target_folder"
     new_links="$(cat "$meta_folder/links" | ${pkgs.gnugrep}/bin/grep -v -f "$meta_folder/finished" || :)"
