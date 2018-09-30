@@ -149,8 +149,7 @@ let
         echo "already in finished: $1"
       fi
       id="$(echo "$1" | ${pkgs.gnused}/bin/sed 's@.*youtube.com/watch?v=\([^#]*\)#.*@\1@')"
-      echo $id
-      if ls "$target_folder" | ${pkgs.gnugrep}/bin/grep -Fe "$(echo "$1" | ${pkgs.gnused}/bin/sed 's@.*youtube.com/watch?v=\([^#]*\)#.*@\1@')"; then
+      if ls "$target_folder" | ${pkgs.gnugrep}/bin/grep -Fe "$id.ogg"; then
         echo "file already exists: $1"
       else
         ${pkgs.youtube-dl}/bin/youtube-dl \
