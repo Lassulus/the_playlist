@@ -7,7 +7,7 @@ let
     fetchSubmodules = true;
   };
   lib = import "${stockholm}/lib";
-  pkgs = import (builtins.fetchGit { url = "https://github.com/nixos/nixpkgs-channels"; ref = "44b02b52ea6a49674f124f50009299f192ed78bb"; }) { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
+  pkgs = import (builtins.fetchGit { url = "https://github.com/nixos/nixpkgs-channels"; ref = "ae002fe44e96b868c62581e8066d559ca2179e01"; }) { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
 
   commands.review = let
     moveToDir = key: dir: pkgs.writeText "move-with-${key}.lua" ''
