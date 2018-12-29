@@ -4,9 +4,10 @@ let
     url = "https://cgit.lassul.us/stockholm";
     rev = "02f67ee";
     sha256 = "1ml6aw8ds1sw6bl238v9vc78sjv3iys71184ayirmj2kn6dr33ap";
+    fetchSubmodules = true;
   };
   lib = import "${stockholm}/lib";
-  pkgs = import <nixpkgs> { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
+  pkgs = import (builtins.fetchGit { url = "https://github.com/nixos/nixpkgs-channels"; ref = "44b02b52ea6a49674f124f50009299f192ed78bb"; }) { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
 
   commands.review = let
     moveToDir = key: dir: pkgs.writeText "move-with-${key}.lua" ''
