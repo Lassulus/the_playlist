@@ -30,20 +30,20 @@ let
     #  delete
     #  good
     #];
-  in pkgs.writeDash "review" ''
+  in pkgs.writers.writeDash "review" ''
     exec ${pkgs.mpv}/bin/mpv --no-config --script=${delete} --script=${good} "$@"
   '';
 
   # add_link
   # download new music from source
   # example: add_link
-  commands.add_link = pkgs.writeDash "commands.add_link" ''
+  commands.add_link = pkgs.writers.writeDash "commands.add_link" ''
     ${utils.prepare_stream} "$@"
   '';
 
   # get_new
   # download new music from source
-  commands.pull = pkgs.writeDash "commands.pull" ''
+  commands.pull = pkgs.writers.writeDash "commands.pull" ''
     set -euf
     ${common_header}
     echo "run1"
@@ -54,7 +54,7 @@ let
     ${utils.download_stream}
   '';
 
-  utils.extract_playlist = pkgs.writeDash "utils.extract_playlist" ''
+  utils.extract_playlist = pkgs.writers.writeDash "utils.extract_playlist" ''
     set -euf
 
     ${pkgs.youtube-dl}/bin/youtube-dl \
@@ -62,7 +62,7 @@ let
       --restrict-filenames --get-filename $1
   '';
 
-  commands.add_new = pkgs.writeDash "commands.add_new" ''
+  commands.add_new = pkgs.writers.writeDash "commands.add_new" ''
     set -euf
     ${common_header}
     ${utils.log_untracked_files} | ${utils.get_links_from_files} >> $meta_folder/links
@@ -78,15 +78,15 @@ let
     touch "$meta_folder/source"
   '';
 
-  utils.files2links_prefix = pkgs.writeDash "utils.files2links_prefix" ''
+  utils.files2links_prefix = pkgs.writers.writeDash "utils.files2links_prefix" ''
     ${pkgs.gnused}/bin/sed 's,.*\(.\{11\}\)\.ogg,http://www.youtube.com/watch?v=\1,'
   '';
 
-  utils.links2files_suffix = pkgs.writeDash "utils.links2files_suffix" ''
+  utils.links2files_suffix = pkgs.writers.writeDash "utils.links2files_suffix" ''
     ${pkgs.gnused}/bin/sed 's/.*v=\([^#]*\).*/\1.ogg/'
   '';
 
-  utils.log_undownloaded_links = pkgs.writeDash "utils.log_undownloaded_links" ''
+  utils.log_undownloaded_links = pkgs.writers.writeDash "utils.log_undownloaded_links" ''
     set -euf
     target_folder=''${target_folder-./}
     if ! test -e "$target_folder/.meta"; then
@@ -99,7 +99,7 @@ let
 
   '';
 
-  utils.log_untracked_files = pkgs.writeDash "utils.log_untracked_files" ''
+  utils.log_untracked_files = pkgs.writers.writeDash "utils.log_untracked_files" ''
     set -euf
     target_folder=''${target_folder-./}
     if ! test -e "$target_folder/.meta"; then
@@ -111,18 +111,18 @@ let
     ls | $filter_tracked_files
   '';
 
-  utils.get_links_from_files = pkgs.writeDash "utils.get_link_from_file" ''
+  utils.get_links_from_files = pkgs.writers.writeDash "utils.get_link_from_file" ''
     ${pkgs.gnused}/bin/sed 's,.*\(.\{11\}\)\.ogg,http://www.youtube.com/watch?v=\1,' | \
       ${pkgs.findutils}/bin/xargs -n 1 ${utils.extract_playlist}
   '';
 
-  utils.prepare_stream = pkgs.writeDash "utils.prepare_stream" ''
+  utils.prepare_stream = pkgs.writers.writeDash "utils.prepare_stream" ''
     set -euf
     ${common_header}
     echo "$@" | ${pkgs.gnugrep}/bin/grep -v -f "$meta_folder/source" >> "$meta_folder/source"
   '';
 
-  utils.download_stream = pkgs.writeDash "utils.download_stream" ''
+  utils.download_stream = pkgs.writers.writeDash "utils.download_stream" ''
     set -euf
     ${common_header}
     cd "$target_folder"
@@ -132,14 +132,14 @@ let
     fi
   '';
 
-  utils.get_stream_links = pkgs.writeDash "utils.get_stream_links" ''
+  utils.get_stream_links = pkgs.writers.writeDash "utils.get_stream_links" ''
     set -euf
     ${common_header}
     ${utils.extract_playlist} "$1" | ${pkgs.gnugrep}/bin/grep -v -f "$meta_folder/links" | tee -a "$meta_folder/links"
   '';
 
-  utils.download_ogg = pkgs.writeDash "utils.download_ogg" ''
-    set -euf
+  utils.download_ogg = pkgs.writers.writeDash "utils.download_ogg" ''
+    set -xeuf
     ${common_header}
 
     if ! test "$#" -eq 1; then
