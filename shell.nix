@@ -1,13 +1,8 @@
 let
   opkgs = import <nixpkgs> {};
-  stockholm = opkgs.fetchgit {
-    url = "https://cgit.lassul.us/stockholm";
-    rev = "02f67ee";
-    sha256 = "1ml6aw8ds1sw6bl238v9vc78sjv3iys71184ayirmj2kn6dr33ap";
-    fetchSubmodules = true;
-  };
-  lib = import "${stockholm}/lib";
-  pkgs = import (builtins.fetchGit { url = "https://github.com/nixos/nixpkgs-channels"; ref = "ae002fe44e96b868c62581e8066d559ca2179e01"; }) { overlays = [(import "${stockholm}/krebs/5pkgs")]; };
+  nixWriters = builtins.fetchGit { url = "https://github.com/krebs/nix-writers"; rev = "f6b2139310546574942a1319cadab973b616d888"; };
+  pkgs = import (builtins.fetchGit { url = "https://github.com/nixos/nixpkgs-channels"; ref = "ae002fe44e96b868c62581e8066d559ca2179e01"; }) { overlays = [(import "${nixWriters}/pkgs")]; };
+  lib = pkgs.lib;
 
   commands.review = let
     moveToDir = key: dir: pkgs.writeText "move-with-${key}.lua" ''
@@ -166,11 +161,11 @@ let
 
   '';
 
-  shell.utilspkg = pkgs.writeOut "shell.utilspkg" (lib.mapAttrs' (name: link:
+  shell.utilspkg = pkgs.write "shell.utilspkg" (lib.mapAttrs' (name: link:
     lib.nameValuePair "/bin/${name}" { inherit link; }
   ) utils);
 
-  shell.cmdspkg = pkgs.writeOut "shell.cmdspkg" (lib.mapAttrs' (name: link:
+  shell.cmdspkg = pkgs.write "shell.cmdspkg" (lib.mapAttrs' (name: link:
     lib.nameValuePair "/bin/${name}" { inherit link; }
   ) commands);
 
